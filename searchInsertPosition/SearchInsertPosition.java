@@ -17,6 +17,10 @@ public class SearchInsertPosition {
 		System.out.println(searchInsert(sortedArray, 14));
 		System.out.println(searchInsert(sortedArray, 131));
 		System.out.println(searchInsert(sortedArray, 250));
+		System.out.println(searchInsert2(sortedArray, 0));
+		System.out.println(searchInsert2(sortedArray, 14));
+		System.out.println(searchInsert2(sortedArray, 131));
+		System.out.println(searchInsert2(sortedArray, 250));
 	}
 
 	/**
@@ -35,5 +39,28 @@ public class SearchInsertPosition {
         	}
         }
     	return A.length;
+    }
+    
+    /**
+     * Solution: Binary search.
+     * @param A
+     * @param target
+     * @return
+     */
+    public static int searchInsert2(int[] A, int target) {
+    	int lowerBound = 0;
+    	int upperBound = A.length - 1;
+    	
+    	while(upperBound - lowerBound > 0) {
+    		int mid = (lowerBound + upperBound) / 2;
+    		if(A[mid] >= target) {
+    			upperBound = mid;
+    		}
+    		else {
+    			lowerBound = mid + 1;
+    		}
+    	}
+    	
+    	return A[lowerBound] >= target ? lowerBound : lowerBound + 1;
     }
 }
