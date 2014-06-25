@@ -50,4 +50,25 @@ public class MergeSortedArray {
     	    A[count++] = B[b++];
     	}
     }
+    
+    /**
+     * Solution: Better.
+     * @param A
+     * @param m
+     * @param B
+     * @param n
+     */
+    public void merge2(int A[], int m, int B[], int n) {
+    	int count = m + n;
+    	int a = m;
+    	int b = n;
+    	while(b > 0) {
+    		if(a > 0 && A[a - 1] >= B[b - 1]) {
+    			A[--count] = A[--a];
+    		}
+    		else {
+    			A[--count] = B[--b];
+    		}
+    	}
+    }
 }
