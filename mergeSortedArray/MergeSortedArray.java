@@ -12,7 +12,7 @@ public class MergeSortedArray {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		// No valid testing data available
 	}
 
 	/**
