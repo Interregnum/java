@@ -21,6 +21,10 @@ public class SearchA2DMatrix {
 		System.out.println(searchMatrix(matrix1, 16));
 		System.out.println(searchMatrix(matrix1, 34));
 		System.out.println(searchMatrix(matrix1, 51));
+		System.out.println(searchMatrix2(matrix1, 3));
+		System.out.println(searchMatrix2(matrix1, 16));
+		System.out.println(searchMatrix2(matrix1, 34));
+		System.out.println(searchMatrix2(matrix1, 51));
 	}
 
 	/**
@@ -63,5 +67,50 @@ public class SearchA2DMatrix {
         	}
         }
         return false;
+    }
+    
+    /**
+     * Solution: Binary Search.
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public static boolean searchMatrix2(int[][] matrix, int target) {
+    	if(null == matrix || matrix.length == 0) {
+    		return false;
+    	}
+    	int start1 = 0;
+    	int end1 = matrix.length - 1;
+    	while(start1 < end1 - 1) {
+    		int middle1 = (start1 + end1) / 2;
+    		if(matrix[end1][0] < target) {
+    			start1 = end1;
+    			break;
+    		}
+    		if(matrix[middle1][0] == target) {
+    			return true;
+    		}
+    		else if(matrix[middle1][0] < target) {
+    			start1 = middle1;
+    		}
+    		else {
+    			end1 = middle1 - 1;
+    		}
+    	}
+    	int start2 = 0;
+    	int end2 = matrix[start1].length - 1;
+    	while(start2 <= end2) {
+    		int middle2 = (start2 + end2) / 2;
+    		if(matrix[start1][middle2] == target) {
+    			return true;
+    		}
+    		else if(matrix[start1][middle2] < target) {
+    			start2 = middle2 + 1;
+    		}
+    		else {
+    			end2 = middle2;
+    		}
+    	}
+    	return false;
     }
 }
