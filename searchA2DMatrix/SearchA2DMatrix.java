@@ -79,36 +79,33 @@ public class SearchA2DMatrix {
     	if(null == matrix || matrix.length == 0) {
     		return false;
     	}
-    	int start1 = 0;
-    	int end1 = matrix.length - 1;
-    	while(start1 < end1 - 1) {
-    		int middle1 = (start1 + end1) / 2;
-    		if(matrix[end1][0] < target) {
-    			start1 = end1;
+    	int row = 0;
+    	for(; row < matrix.length; ++row) {
+    		if(matrix[row][0] == target) {
+    			return true;
+    		}
+    		else if(matrix[row][0] < target) {
+    			continue;
+    		}
+    		else {
     			break;
     		}
-    		if(matrix[middle1][0] == target) {
-    			return true;
-    		}
-    		else if(matrix[middle1][0] < target) {
-    			start1 = middle1;
-    		}
-    		else {
-    			end1 = middle1 - 1;
-    		}
     	}
-    	int start2 = 0;
-    	int end2 = matrix[start1].length - 1;
-    	while(start2 <= end2) {
-    		int middle2 = (start2 + end2) / 2;
-    		if(matrix[start1][middle2] == target) {
+    	if(--row < 0) {
+    		return false;
+    	}
+    	int start = 0;
+    	int end = matrix[row].length - 1;
+    	while(start <= end) {
+    		int middle = (start + end) / 2;
+    		if(matrix[row][middle] == target) {
     			return true;
     		}
-    		else if(matrix[start1][middle2] < target) {
-    			start2 = middle2 + 1;
+    		else if(matrix[row][middle] < target) {
+    			start = middle + 1;
     		}
     		else {
-    			end2 = middle2;
+    			end = middle - 1;
     		}
     	}
     	return false;
