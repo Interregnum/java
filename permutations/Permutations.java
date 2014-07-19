@@ -40,7 +40,7 @@ public class Permutations {
     	if(index == num.size()) {
     		return;
     	}
-    	for(int i = 0; i < num.size(); ++i) {
+    	for(int i = index; i < num.size(); ++i) {
     		List<Integer> current = new ArrayList<Integer>(num);
         	int tmp = current.get(index);
         	current.set(index, current.get(i));
