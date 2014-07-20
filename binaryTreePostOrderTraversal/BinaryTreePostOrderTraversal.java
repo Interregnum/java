@@ -2,6 +2,7 @@ package binaryTreePostOrderTraversal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import common.TreeNode;
 
@@ -42,6 +43,55 @@ public class BinaryTreePostOrderTraversal {
     		traverse(node.right);
     	}
    		output.add(node.val);
-   		return;
+    }
+    
+    /**
+     * Solution: Iteration.
+     * @param root
+     * @return
+     */
+    public static List<Integer> postorderTraversal2(TreeNode root) {
+    	List<Integer> result = new ArrayList<Integer>();
+    	Stack<TreeNode> stack = new Stack<TreeNode>();
+    	if(null == root) {
+    		return result;
+    	}
+    	TreeNode node = root;
+    	TreeNode cur = root;
+    	boolean l = false;
+    	boolean r = false;
+    	stack.push(node);
+outer: 	
+		while(!stack.isEmpty()) {
+    		node = stack.peek();
+	    	while(null != node.left && !l) {
+	    		stack.push(node.left);
+	    		r = false;
+	    		continue outer;
+	    	}
+	    	while(null != node.right && !r) {
+	    		stack.push(node.right);
+	    		l = false;
+	    		continue outer;
+	    	}
+	    	result.add(stack.pop().val);
+	    	if(stack.isEmpty()) {
+	    		continue;
+	    	}
+	    	cur = stack.peek();
+	    	if(node == cur.left) {
+	    		l = true;
+	    		r = false;
+	    	}
+	    	else if(node == cur.right) {
+	    		l = true;
+	    		r = true;
+	    	}
+	    	else {
+	    		l = false;
+	    		r = false;
+	    	}
+    	}
+    	return result;
     }
 }
