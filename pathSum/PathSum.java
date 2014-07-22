@@ -17,6 +17,7 @@ public class PathSum {
 	}
 
 	private boolean flag = false;
+	
 	/**
 	 * Solution.
 	 * @param root
@@ -38,5 +39,21 @@ public class PathSum {
     	}
     	traverse(root.left, sum - root.val);
     	traverse(root.right, sum - root.val);
+    }
+    
+	/**
+	 * Solution: Optimized Recursion.
+	 * @param root
+	 * @param sum
+	 * @return
+	 */
+    public boolean hasPathSum2(TreeNode root, int sum) {
+    	if(null == root) {
+    		return false;
+    	}
+    	if(null == root.left && null == root.right) {
+    		return root.val == sum;
+    	}
+    	return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
 }
