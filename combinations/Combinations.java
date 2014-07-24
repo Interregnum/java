@@ -1,10 +1,7 @@
 package combinations;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
@@ -20,7 +17,7 @@ public class Combinations {
 		System.out.println(combine(13, 13));
 	}
 
-	private static Set<List<Integer>> output = new HashSet<List<Integer>>();
+	private static List<List<Integer>> output = new ArrayList<List<Integer>>();
 	
 	/**
 	 * Solution.
@@ -29,30 +26,20 @@ public class Combinations {
 	 * @return
 	 */
     public static List<List<Integer>> combine(int n, int k) {
-    	List<Integer> candidate = new ArrayList<Integer>(n);
     	List<Integer> result = new ArrayList<Integer>(k);
-    	for(int i = 0; i < n; ++i) {
-    		candidate.add(i + 1);
-    	}
-    	search(candidate, result, n, k);
-    	return new ArrayList<List<Integer>>(output);
+    	search(result, 1, n, k);
+    	return output;
     }
     
-    public static void search(List<Integer> candidate, List<Integer> result, int n, int k) {
+    public static void search(List<Integer> result, int cur, int n, int k) {
     	if(k < 1) {
-    		List<Integer> tmp = new ArrayList<Integer>(result);
-    		Collections.sort(tmp);
-    		output.add(tmp);
+    		output.add(new ArrayList<Integer>(result));
     		return;
     	}
     	
-    	for(int i = 0; i < n; ++i) {
-    		result.add(candidate.get(i));
-    		int removed = candidate.remove(i);
-    		System.out.println(result);
-    		System.out.println(candidate);
-    		search(candidate, result, n - 1, k - 1);
-    		candidate.add(i, removed);
+    	for(int i = cur; i <= n; ++i) {
+    		result.add(i);
+    		search(result, i + 1, n, k - 1);
     		result.remove(result.size() - 1);
     	}
     }
