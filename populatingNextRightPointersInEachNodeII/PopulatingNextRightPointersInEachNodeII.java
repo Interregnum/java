@@ -14,8 +14,7 @@ public class PopulatingNextRightPointersInEachNodeII {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		// No valid testing data available
 	}
 
 	/**
@@ -47,27 +46,30 @@ public class PopulatingNextRightPointersInEachNodeII {
     		i = 0;
     		current = parent.left;
     	}
-outer:
     	while(true) {
-	    	while(next == null) {
-	    		if(i == 0) {
-	    			next = parent.right;
-	    			parent = parent.next;
-	    			i = 1;
-	    		}
-	    		if(i == 1) {
-	    			if(parent == null) {
-	    				break outer;
-	    			}
-	    			next = parent.left;
-	    			i = 0;
-	    		}
-	    	}
-	    	current.next = next;
-	    	current = current.next;
-	    	next = null;
+    	    while(next == null) {
+        		if(i == 0) {
+        			next = parent.right;
+        			i = 1;
+        		}
+        		else {
+        		    parent = parent.next;
+        			if(parent == null) {
+        				break;
+        			}
+        			next = parent.left;
+        			i = 0;
+        		}
+    	    }
+    		current.next = next;
+    		if(next == null) {
+    		    break;
+    		}
+    		else {
+    		    current = current.next;
+    		    next = null;
+    		}
     	}
-    	current.next = null;
     	traverse(first.left == null ? first.right : first.left);
     }
     
