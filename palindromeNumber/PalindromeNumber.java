@@ -35,6 +35,9 @@ public class PalindromeNumber {
      * @return
      */
     public static boolean isPalindrome2(int x) {
+    	if(x < 0) {
+    		return false;
+    	}
     	long reversed = 0;
     	long original = x;
     	while(x / 10 > 0) {
