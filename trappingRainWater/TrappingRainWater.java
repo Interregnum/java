@@ -22,6 +22,17 @@ public class TrappingRainWater {
 	 */
     public static int trap(int[] A) {
         int totalVolume = 0;
+        int[] rightMax = new int[A.length];
+        int right = Integer.MIN_VALUE;
+        int left = Integer.MIN_VALUE;
+        for(int i = A.length - 1; i >= 0; --i) {
+        	right = Math.max(right, A[i]);
+        	rightMax[i] = right;
+        }
+        for(int i = 0; i < A.length; ++i) {
+        	left = Math.max(left, A[i]);
+        	totalVolume += (Math.min(left, rightMax[i]) - A[i]);
+        }
     	return totalVolume;
     }
 }
