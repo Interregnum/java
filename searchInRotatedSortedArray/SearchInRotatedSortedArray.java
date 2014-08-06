@@ -41,7 +41,7 @@ public class SearchInRotatedSortedArray {
         while(lower <= upper) {
         	int middle = lower + (upper - lower) / 2;
         	if(A[middle % A.length] == target) {
-        		return middle;
+        		return middle % A.length;
         	}
         	else if(A[middle % A.length] > target) {
         		upper = middle - 1;
