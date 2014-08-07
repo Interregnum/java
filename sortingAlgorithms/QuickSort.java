@@ -12,7 +12,7 @@ public class QuickSort {
 	 */
 	public static void main(String[] args) {
 		int[] array1 = {4, 5, 3, 2, 4, 6, 2, 4};
-		sort(array1, 0, array1.length - 1);
+		quickSort(array1, 0, array1.length - 1);
 	}
 	
 	/**
@@ -21,7 +21,7 @@ public class QuickSort {
 	 * @param lower
 	 * @param upper
 	 */
-	public static void sort(int[] array, int lower, int upper) {
+	public static void quickSort(int[] array, int lower, int upper) {
 		if(lower >= upper) {
 			return;
 		}
@@ -46,7 +46,7 @@ public class QuickSort {
 			}
 		}
 		array[l] = pivot;
-		sort(array, lower, l - 1);
-		sort(array, l + 1, upper);
+		quickSort(array, lower, l - 1);
+		quickSort(array, l + 1, upper);
 	}
 }
