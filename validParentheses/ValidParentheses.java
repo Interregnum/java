@@ -31,30 +31,21 @@ public class ValidParentheses {
         		if(stack.isEmpty()) {
         			return false;
         		}
-        		char cur = stack.peek();
+        		char cur = stack.pop();
         		switch(s.charAt(i)) {
         			case ')':
         				if(cur != '(') {
         					return false;
-        				}
-        				else {
-        					stack.pop();
         				}
         				break;
         			case ']': 
         				if(cur != '[') {
         					return false;
         				}
-        				else {
-        					stack.pop();
-        				}
         				break;
         			case '}': 
         				if(cur != '{') {
         					return false;
-        				}
-        				else {
-        					stack.pop();
         				}
         				break;
         			default:
