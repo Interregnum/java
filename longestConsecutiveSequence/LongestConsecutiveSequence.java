@@ -14,7 +14,8 @@ public class LongestConsecutiveSequence {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		int[] array1 = {0, -1};
+		System.out.println(longestConsecutive(array1));
 	}
 
 	/**
@@ -22,9 +23,10 @@ public class LongestConsecutiveSequence {
 	 * @param num
 	 * @return
 	 */
-    public int longestConsecutive(int[] num) {
+    public static int longestConsecutive(int[] num) {
     	Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
     	int count = 0;
+    	int max = 0;
     	for(int i = 0; i < num.length; ++i) {
     		if(map.containsKey(num[i] - 1) || map.containsKey(num[i] + 1)) {
     			map.put(num[i], true);
@@ -42,14 +44,31 @@ public class LongestConsecutiveSequence {
     	for(int i = 0; i < num.length; ++i) {
     		int j = 0;
     		while(map.get(num[i] - j)) {
-    			map.put(num[i] - j, false);
-    			if(map.containsKey(num[i] - j)) {
+    			if(j != 0) {
+    				map.put(num[i] - j, false);
+    			}
+    			if(map.containsKey(num[i] - j - 1)) {
     				count++;
     				j++;
     			}
+    			else {
+    				break;
+    			}
     		}
-    		j = -1;
-    		while()
+    		j = 0;
+    		while(map.get(num[i] - j)) {
+    			map.put(num[i] - j, false);
+    			if(map.containsKey(num[i] - j + 1)) {
+    				count++;
+    				j--;
+    			}
+    			else {
+    				break;
+    			}
+    		}
+    		max = Math.max(max, ++count);
+    		count = 0;
     	}
+    	return max;
     }
 }
