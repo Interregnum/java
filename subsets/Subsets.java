@@ -30,11 +30,11 @@ public class Subsets {
         List<Integer> current = new ArrayList<Integer>();
         output.add(current);
         for(int i = 0; i < S.length; ++i) {
-        	List<List<Integer>> subsets = new ArrayList<List<Integer>>(output);
-        	for(List<Integer> subset : subsets) {
-        		List<Integer> newSubset = new ArrayList<Integer>(subset);
-        		newSubset.add(S[i]);
-        		output.add(newSubset);
+        	int length = output.size();
+        	for(int j = 0; j < length; ++j) {
+        		List<Integer> subset = new ArrayList<Integer>(output.get(j));
+        		subset.add(S[i]);
+        		output.add(subset);
         	}
         }
         return output;
