@@ -17,6 +17,8 @@ public class WildcardMatching {
 		System.out.println(isMatch("aa", "*"));
 		System.out.println(isMatch("aa", "a*"));
 		System.out.println(isMatch("ab", "?*"));
+		System.out.println(isMatch("abcccbccba", "a*ba"));
+		System.out.println(isMatch("c", "*?*"));
 		System.out.println(isMatch("aab", "c*a*b"));
 	}
 
@@ -31,44 +33,25 @@ public class WildcardMatching {
         	return true;
         }
         else if(s.isEmpty() || p.isEmpty()) {
-        	return s.isEmpty() ? allStar(p) : allStar(s);
+        	return s.isEmpty() ? allStar(p) : false;
         }
         else {
-            if(s.charAt(0) == p.charAt(0) || s.charAt(0) == '?' || p.charAt(0) == '?') {
-            	return isMatch(s.substring(1), p.substring(1));
-            }
-        	else if(s.charAt(0) == '*' && p.charAt(0) == '*') {
-        		int sIndex = findFirstNonStar(s);
-        		int pIndex = findFirstNonStar(p);
-        		if(sIndex == -1 || pIndex == -1) {
-        			return true;
+        	int i = 0;
+        	for(; i < s.length() && i < p.length(); ++i) {
+        		if(s.charAt(i) != p.charAt(i)) {
+        			if(p.charAt(i) == '?') {
+        				continue;
+        			}
+        			else if(p.charAt(i) == '*') {
+        				return isMatch(s.substring(i), p.substring(i + 1)) || isMatch(s.substring(i + 1), p.substring(i));
+        			}
+        			else {
+        				return false;
+        			}
         		}
-        		return isMatch(s.substring(sIndex), p) || isMatch(s, p.substring(pIndex));
         	}
-            else if(s.charAt(0) == '*') {
-            	int sIndex = findFirstNonStar(s);
-            	if(sIndex == -1) {
-            		return true;
-            	}
-            	int pIndex = findFirstChar(p, s.charAt(sIndex));
-            	if(pIndex == -1) {
-            		return false;
-            	}
-            	return isMatch(s.substring(sIndex), p.substring(pIndex));
-            }
-            else if(p.charAt(0) == '*') {
-            	int pIndex = findFirstNonStar(p);
-            	if(pIndex == -1) {
-            		return true;
-            	}
-            	int sIndex = findFirstChar(s, p.charAt(pIndex));
-            	if(sIndex == -1) {
-            		return false;
-            	}
-            	return isMatch(s.substring(sIndex), p.substring(pIndex));
-            }
+        	return isMatch(s.substring(i), p.substring(i));
         }
-		return false;
     }
     
     public static int findFirstNonStar(String s) {
