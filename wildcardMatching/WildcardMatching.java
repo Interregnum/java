@@ -18,12 +18,12 @@ public class WildcardMatching {
 		System.out.println(isMatch("aa", "a*"));
 		System.out.println(isMatch("ab", "?*"));
 		System.out.println(isMatch("abcccbccba", "a*ba"));
-		System.out.println(isMatch("c", "*?*"));
+		System.out.println(isMatch("aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*"));
 		System.out.println(isMatch("aab", "c*a*b"));
 	}
 
 	/**
-	 * Solution.
+	 * Solution: Recursion.
 	 * @param s
 	 * @param p
 	 * @return
