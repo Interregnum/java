@@ -12,7 +12,7 @@ public class MedianOfTwoSortedArrays {
 	 */
 	public static void main(String[] args) {
 		int[] array1 = {1, 3, 4, 5};
-		int[] array2 = {2, 5, 6};
+		int[] array2 = {2, 5, 6, 7};
 		System.out.println(findMedianSortedArrays(array1, array2));
 	}
 
@@ -26,8 +26,8 @@ public class MedianOfTwoSortedArrays {
         int a = 0;
         int b = 0;
         int c = 0;
-        int[] C = new int[A.length + B.length];
-        while(a < A.length && b < B.length) {
+        int[] C = new int[(A.length + B.length) / 2 + 1];
+        while(c < C.length) {
         	if(A[a] < B[b]) {
         		C[c++] = A[a++];
         	}
@@ -35,13 +35,7 @@ public class MedianOfTwoSortedArrays {
         		C[c++] = B[b++];
         	}
         }
-        while(a < A.length) {
-        	C[c++] = A[a++];
-        }
-        while(b < B.length) {
-        	C[c++] = B[b++];
-        }
-        return C.length % 2 == 1 ? C[(C.length - 1) / 2] : (C[C.length / 2] + C[C.length / 2 - 1]) / 2.0;
+        return (A.length + B.length) % 2 == 1 ? C[C.length - 1] : (C[C.length - 1] + C[C.length - 2]) / 2.0;
     }
     
     /**
