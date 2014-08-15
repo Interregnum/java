@@ -11,19 +11,19 @@ public class WildcardMatching {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(isMatch("aa", "a"));
-		System.out.println(isMatch("aa", "aa"));
-		System.out.println(isMatch("aaa", "aa"));
-		System.out.println(isMatch("aa", "*"));
-		System.out.println(isMatch("aa", "a*"));
-		System.out.println(isMatch("ab", "?*"));
-		System.out.println(isMatch("abcccbccba", "a*ba"));
-		System.out.println(isMatch("aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*"));
-		System.out.println(isMatch("aab", "c*a*b"));
+		System.out.println(isMatch2("aa", "a"));
+		System.out.println(isMatch2("aa", "aa"));
+		System.out.println(isMatch2("aaa", "aa"));
+		System.out.println(isMatch2("aa", "*"));
+		System.out.println(isMatch2("aa", "a*"));
+		System.out.println(isMatch2("ab", "?*"));
+		System.out.println(isMatch2("abcccbccba", "a*ba"));
+		System.out.println(isMatch2("aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*"));
+		System.out.println(isMatch2("aab", "c*a*b"));
 	}
 
 	/**
-	 * Solution: Recursion.
+	 * Solution: Recursion - TLE.
 	 * @param s
 	 * @param p
 	 * @return
@@ -54,24 +54,6 @@ public class WildcardMatching {
         }
     }
     
-    public static int findFirstNonStar(String s) {
-    	for(int i = 0; i < s.length(); ++i) {
-    		if(s.charAt(i) != '*') {
-    			return i;
-    		}
-    	}
-    	return -1;
-    }
-    
-    public static int findFirstChar(String s, char c) {
-    	for(int i = 0; i < s.length(); ++i) {
-    		if(s.charAt(i) == c) {
-    			return i;
-    		}
-    	}
-    	return -1;
-    }
-    
     public static boolean allStar(String s) {
     	for(int i = 0; i < s.length(); ++i) {
     		if(s.charAt(i) != '*') {
@@ -79,5 +61,40 @@ public class WildcardMatching {
     		}
     	}
     	return true;
+    }
+    
+    /**
+     * Solution: Dynamic Programming - MLE.
+     * @param s
+     * @param p
+     * @return
+     */
+    public static boolean isMatch2(String s, String p) {
+    	boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+    	int count = 0;
+    	dp[0][0] = true;
+    	for(int i = 1; i <= s.length(); ++i) {
+    		dp[i][0] = false;
+    	}
+    	for(int j = 1; j <= p.length(); ++j) {
+    		if(p.charAt(j - 1) != '*') {
+    			count++;
+    		}
+    		dp[0][j] = dp[0][j - 1] && p.charAt(j - 1) == '*';
+    	}
+    	if(count > s.length()) {
+    		return false;
+    	}
+    	for(int i = 1; i <= s.length(); ++i) {
+    		for(int j = 1; j <= p.length(); ++j) {
+    			if(p.charAt(j - 1) != '*') {
+    				dp[i][j] = dp[i - 1][j - 1] && (p.charAt(j - 1) == '?' || p.charAt(j - 1) == s.charAt(i - 1));
+    			}
+    			else {
+    				dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
+    			}
+    		}
+    	}
+    	return dp[s.length()][p.length()];
     }
 }
