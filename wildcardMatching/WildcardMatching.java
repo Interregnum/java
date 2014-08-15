@@ -11,15 +11,15 @@ public class WildcardMatching {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(isMatch2("aa", "a"));
-		System.out.println(isMatch2("aa", "aa"));
-		System.out.println(isMatch2("aaa", "aa"));
-		System.out.println(isMatch2("aa", "*"));
-		System.out.println(isMatch2("aa", "a*"));
-		System.out.println(isMatch2("ab", "?*"));
-		System.out.println(isMatch2("abcccbccba", "a*ba"));
-		System.out.println(isMatch2("aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*"));
-		System.out.println(isMatch2("aab", "c*a*b"));
+		System.out.println(isMatch3("aa", "a"));
+		System.out.println(isMatch3("aa", "aa"));
+		System.out.println(isMatch3("aaa", "aa"));
+		System.out.println(isMatch3("aa", "*"));
+		System.out.println(isMatch3("aa", "a*"));
+		System.out.println(isMatch3("ab", "?*"));
+		System.out.println(isMatch3("abcccbccba", "a*ba"));
+		System.out.println(isMatch3("aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*"));
+		System.out.println(isMatch3("aab", "c*a*b"));
 	}
 
 	/**
@@ -96,5 +96,56 @@ public class WildcardMatching {
     		}
     	}
     	return dp[s.length()][p.length()];
+    }
+    
+    /**
+     * Solution: Greedy.
+     * @param s
+     * @param p
+     * @return
+     */
+    public static boolean isMatch3(String s, String p) {
+    	if(s.isEmpty() && p.isEmpty()) {
+    		return true;
+    	}
+    	
+    	int starS = -1;
+    	int starP = -1;
+    	int indexS = 0;
+    	int indexP = 0;
+    	
+    	while(indexS < s.length()) {
+    		if(indexP < p.length() && (s.charAt(indexS) == p.charAt(indexP) || p.charAt(indexP) == '?')) {
+    			++indexS;
+    			++indexP;
+    		}
+    		else if(indexP < p.length() && p.charAt(indexP) == '*') {
+    			while(indexP < p.length() && p.charAt(indexP) == '*') {
+    				++indexP;
+    			}
+    			if(indexP == p.length()) {
+    				return true;
+    			}
+    			else {
+    				starS = indexS;
+    				starP = indexP;
+    			}
+    		}
+    		else if((indexP >= p.length() || s.charAt(indexS) != p.charAt(indexP)) && starP != -1) {
+    			indexS = ++starS;
+    			indexP = starP;
+    		}
+    		else {
+    			return false;
+    		}
+    	}
+    	
+    	while(indexP < p.length()) {
+    		if(p.charAt(indexP) != '*') {
+    			return false;
+    		}
+    		++indexP;
+    	}
+    	return true;
     }
 }
