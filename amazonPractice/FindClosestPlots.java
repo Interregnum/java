@@ -20,7 +20,7 @@ public class FindClosestPlots {
 		points.add(new Point(4, 4));
 		points.add(new Point(1, 1));
 		points.add(new Point(2, 3));
-		System.out.println(findClosestPlot(points, 1));
+		System.out.println(findClosestPlot2(points, 2));
 	}
 
 	/**
@@ -34,6 +34,21 @@ public class FindClosestPlots {
 		List<Point> output = new ArrayList<Point>();
 		for(int i = 0; i < num; ++i) {
 			output.add(points.get(i));
+		}
+		return output;
+	}
+	
+	/**
+	 * Solution: Use Heap.
+	 * @param points
+	 * @param num
+	 * @return
+	 */
+	public static List<Point> findClosestPlot2(List<Point> points, int num) {
+		Heap heap = new Heap(points);
+		List<Point> output = new ArrayList<Point>();
+		for(int i = 0; i < num; ++i) {
+			output.add(heap.deleteMin());
 		}
 		return output;
 	}

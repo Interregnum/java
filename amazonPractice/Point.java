@@ -5,8 +5,8 @@ package amazonPractice;
  * @author Mengchao Zhong
  */
 public class Point implements Comparable<Point> {
-	int x;
-	int y;
+	private int x;
+	private int y;
 
 	/**
 	 * Constructor.
