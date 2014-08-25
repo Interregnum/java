@@ -27,33 +27,31 @@ public class CountAndSay {
 	 * @return
 	 */
     public static String countAndSay(int n) {
-        String[] dp = new String[n];
-        dp[0] = "1";
-        
+    	String dp = "1";
+    	
         for(int i = 1; i < n; ++i) {
-        	String tmp = dp[i - 1];
         	StringBuilder newWord = new StringBuilder();
         	int count = 1;
         	int j = 0;
-        	for(; j < tmp.length() - 1;) {
-        		if(tmp.charAt(j) == tmp.charAt(j + 1)) {
+        	for(; j < dp.length() - 1;) {
+        		if(dp.charAt(j) == dp.charAt(j + 1)) {
         			++count;
         			++j;
         			continue;
         		}
         		else {
         			newWord.append(count);
-        			newWord.append(tmp.charAt(j));
+        			newWord.append(dp.charAt(j));
         			++j;
         			count = 1;
         			continue;
         		}
         	}
         	newWord.append(count);
-        	newWord.append(tmp.charAt(j));
-        	dp[i] = newWord.toString();
+        	newWord.append(dp.charAt(j));
+        	dp = newWord.toString();
         }
         
-        return dp[n - 1];
+        return dp;
     }
 }
