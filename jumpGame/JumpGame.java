@@ -17,10 +17,10 @@ public class JumpGame {
 		int[] array2 = {3, 2, 1, 0, 4};
 		int[] array3 = {4, 0, 0, 0, 2, 0, 1};
 		int[] array4 = {0};
-		System.out.println(canJump(array1));
-		System.out.println(canJump(array2));
-		System.out.println(canJump(array3));
-		System.out.println(canJump(array4));
+		System.out.println(canJump2(array1));
+		System.out.println(canJump2(array2));
+		System.out.println(canJump2(array3));
+		System.out.println(canJump2(array4));
 	}
 
 	/**
@@ -46,5 +46,20 @@ public class JumpGame {
         	}
         }
         return true;
+    }
+
+    /**
+     * Solution: Backward.
+     * @param A
+     * @return
+     */
+    public static boolean canJump2(int[] A) {
+    	int last = A.length - 1;
+    	for(int i = A.length - 2; i >= 0; --i) {
+    		if(last - i <= A[i]) {
+    			last = i;
+    		}
+        }
+        return 0 == last;
     }
 }
