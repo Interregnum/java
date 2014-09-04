@@ -17,8 +17,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		// No valid testing data available
 	}
 
 	/**
