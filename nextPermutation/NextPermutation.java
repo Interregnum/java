@@ -13,7 +13,7 @@ public class NextPermutation {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int[] array = {4, 3, 2, 1};
+		int[] array = {2, 4, 1};
 		nextPermutation(array);
 	}
 
@@ -31,16 +31,21 @@ public class NextPermutation {
             			num[k - 1] = tmp;
             		}
         		}
-        		if(num[i] > num[i - 1]) {
-        			int tmp = num[i];
-        			num[i] = num[i - 1];
-        			num[i - 1] = tmp;
-        		}
-        		else {
+        		if(num[i - 1] >= num[num.length - 1]) {
         			for(int l = 0; l < num.length - 1; ++l) {
         				int tmp = num[l];
             			num[l] = num[l + 1];
             			num[l + 1] = tmp;
+        			}
+        		}
+        		else {
+        			for(int l = i; l < num.length; ++l) {
+        				if(num[i - 1] < num[l]) {
+            				int tmp = num[l];
+                			num[l] = num[i - 1];
+                			num[i - 1] = tmp;
+                			break;
+        				}
         			}
         		}
         		break;
