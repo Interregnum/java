@@ -39,12 +39,8 @@ public class BinaryTreeRightSideView {
         		maxHeight = height;
         	}
         	
-        	if(node.right != null) {
-        		recursion(node.right, height + 1);
-        	}
-        	if(node.left != null) {
-        		recursion(node.left, height + 1);
-        	}
+    		recursion(node.right, height + 1);
+    		recursion(node.left, height + 1);
         }
     }
 }
