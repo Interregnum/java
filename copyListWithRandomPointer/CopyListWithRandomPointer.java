@@ -28,7 +28,7 @@ public class CopyListWithRandomPointer {
 		three.random = five;
 		four.random = five;
 		five.random = two;
-		copyRandomList(one);
+		copyRandomList2(one);
 	}
 
 	/**
@@ -77,5 +77,44 @@ public class CopyListWithRandomPointer {
     	}
     	
     	return headCopy;
+    }
+    
+    /**
+     * Solution: Better.
+     * @param head
+     * @return
+     */
+    public static RandomListNode copyRandomList2(RandomListNode head) {
+    	if(head == null) {
+    		return null;
+    	}
+    	
+    	RandomListNode p = head;
+    	
+    	while(p != null) {
+    		RandomListNode next = p.next;
+    		RandomListNode copy = new RandomListNode(p.label);
+    		copy.next = next;
+    		p.next = copy;
+    		p = next;
+    	}
+    	
+    	p = head;
+    	while(p != null) {
+    		RandomListNode copy = p.next;
+    		copy.random = (p.random == null ? null : p.random.next);
+    		p = copy.next;
+    	}
+    	
+    	p = head;
+    	RandomListNode copyHead = p.next;
+    	while(p != null) {
+    		RandomListNode copy = p.next;
+    		p.next = p.next.next;
+    		copy.next = (copy.next == null ? null : copy.next.next);
+    		p = p.next;
+    	}
+    	
+    	return copyHead;
     }
 }
