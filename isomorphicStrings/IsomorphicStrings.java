@@ -37,10 +37,10 @@ public class IsomorphicStrings {
         		}
         	}
         	else if(map.containsValue(t.charAt(i))) {
-        			return false;
+    			return false;
     		}
     		else {
-        			map.put(s.charAt(i), t.charAt(i));
+    			map.put(s.charAt(i), t.charAt(i));
     		}
         }
         return true;
