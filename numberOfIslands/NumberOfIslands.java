@@ -22,25 +22,25 @@ public class NumberOfIslands {
 			{'1', '1', '0', '0', '1'}
 		};
 		char[][] map2 = new char[][] {
-				{'1', '0', '0', '0', '0'},
-				{'0', '0', '0', '1', '1'},
-				{'0', '1', '0', '1', '0'},
-				{'1', '1', '1', '1', '0'},
-				{'1', '1', '0', '1', '1'}
-			};
+			{'1', '0', '0', '0', '0'},
+			{'0', '0', '0', '1', '1'},
+			{'0', '1', '0', '1', '0'},
+			{'1', '1', '1', '1', '0'},
+			{'1', '1', '0', '1', '1'}
+		};
 		System.out.println(numIslands(map1));
-		System.out.println(numIslands(map2));
+		System.out.println(numIslands2(map2));
 	}
 
 	/**
-	 * Solution.
+	 * Solution: TLE.
 	 * @param grid
 	 * @return
 	 */
     public static int numIslands(char[][] grid) {
     	int count = 0;
         for(int i = 0; i < grid.length; ++i) {
-        	for(int j = 0; j < grid.length; ++j) {
+        	for(int j = 0; j < grid[i].length; ++j) {
         		if(grid[i][j] == '1') {
         			List<String> queue = new ArrayList<String>(); 
         			queue.add(encodePlot(i, j));
@@ -81,5 +81,34 @@ public class NumberOfIslands {
     	coordinates[0] = Integer.parseInt(coordinatesStr[0]);
     	coordinates[1] = Integer.parseInt(coordinatesStr[1]);
     	return coordinates;
+    }
+    
+	/**
+	 * Solution.
+	 * @param grid
+	 * @return
+	 */
+    public static int numIslands2(char[][] grid) {
+    	int count = 0;
+        for(int i = 0; i < grid.length; ++i) {
+        	for(int j = 0; j < grid[i].length; ++j) {
+        		if(grid[i][j] == '1') {
+        			++count;
+        			removeIsland(grid, i, j);
+        		}
+        	}
+        }
+        return count;
+    }
+    
+    public static void removeIsland(char[][] grid, int i, int j) {
+    	if(i < 0 || j < 0 || i > grid.length - 1 || j > grid[i].length - 1 || grid[i][j] == '0') {
+    		return;
+    	}
+    	grid[i][j] = '0';
+    	removeIsland(grid, i - 1, j);
+    	removeIsland(grid, i + 1, j);
+    	removeIsland(grid, i, j - 1);
+    	removeIsland(grid, i, j + 1);
     }
 }
